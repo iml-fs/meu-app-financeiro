@@ -154,8 +154,10 @@ if not st.session_state["logado"]:
         if st.button("Criar minha conta"):
             if nome_cadastro.strip() == "" or email_cadastro.strip() == "" or senha_cadastro == "":
                 st.warning("Preencha todos os campos.")
+            elif senha_cadastro != confirmar_senha:
+                st.warning("As senhas não coincidem.")
             else:
-                st.success("Campos preenchidos corretamente!")
+                st.success("Senhas conferem!")
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
 # ==========================================
