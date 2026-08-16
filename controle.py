@@ -72,6 +72,12 @@ def carregar_usuarios():
 
     return pd.DataFrame(columns=["Nome", "Email", "Senha_Hash"])
 
+def criar_hash_senha(senha):
+    senha_bytes = senha.encode("utf-8")
+    hash_bytes = bcrypt.hashpw(senha_bytes, bcrypt.gensalt())
+
+    return hash_bytes.decode("utf-8")
+
 def salvar_metas_google(df):
     planilha_metas.clear()
     lista_dados = [df.columns.values.tolist()] + df.values.tolist()
