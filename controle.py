@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import gspread
+import json
 from google.oauth2.service_account import Credentials
 
 st.set_page_config(page_title="Lúcido | Finanças", page_icon="💸", layout="wide")
@@ -12,7 +13,9 @@ st.set_page_config(page_title="Lúcido | Finanças", page_icon="💸", layout="w
 escopos = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
 try:
-    credenciais = Credentials.from_service_account_file('credenciais.json', scopes=escopos)
+    credenciais = Credentials.from_service_account_info(
+    json.loads(st.secrets["gspread"]["json_key"]),
+    scopes=escopos
     cliente = gspread.authorize(credenciais)
     arquivo_google = cliente.open("Banco_App_Financeiro")
     
