@@ -126,7 +126,7 @@ if not st.session_state["logado"]:
             else:
                 st.error("E-mail ou senha incorretos!")
 
-       with aba_cadastro:
+    with aba_cadastro:
         st.subheader("Criar uma conta")
 
         nome_cadastro = st.text_input(
@@ -153,7 +153,6 @@ if not st.session_state["logado"]:
 
         if st.button("Criar minha conta"):
             st.info("Botão funcionando!")
-
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
 # ==========================================
