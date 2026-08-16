@@ -129,27 +129,27 @@ if not st.session_state["logado"]:
     with aba_cadastro:
         st.subheader("Criar uma conta")
 
-nome_cadastro = st.text_input(
-    "Seu nome",
-    key="nome_cadastro"
-)
+        nome_cadastro = st.text_input(
+            "Seu nome",
+            key="nome_cadastro"
+        )
 
-email_cadastro = st.text_input(
-    "Seu e-mail",
-    key="email_cadastro"
-)
+        email_cadastro = st.text_input(
+            "Seu e-mail",
+            key="email_cadastro"
+        )
 
-senha_cadastro = st.text_input(
-    "Crie uma senha",
-    type="password",
-    key="senha_cadastro"
-)
+        senha_cadastro = st.text_input(
+            "Crie uma senha",
+            type="password",
+            key="senha_cadastro"
+        )
 
-confirmar_senha = st.text_input(
-    "Confirme sua senha",
-    type="password",
-    key="confirmar_senha"
-)
+        confirmar_senha = st.text_input(
+            "Confirme sua senha",
+            type="password",
+            key="confirmar_senha"
+        )
 
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
