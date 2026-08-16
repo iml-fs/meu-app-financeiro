@@ -16,9 +16,10 @@ try:
     credenciais = Credentials.from_service_account_info(
     json.loads(st.secrets["gspread"]["json_key"]),
     scopes=escopos
+    )
     cliente = gspread.authorize(credenciais)
     arquivo_google = cliente.open("Banco_App_Financeiro")
-    )
+    
     
     planilha_dados = arquivo_google.sheet1
     
