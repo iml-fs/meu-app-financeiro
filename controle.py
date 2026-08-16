@@ -24,11 +24,24 @@ try:
     
     planilha_dados = arquivo_google.sheet1
     
-    try:
+        try:
         planilha_metas = arquivo_google.worksheet("Metas")
     except gspread.exceptions.WorksheetNotFound:
         planilha_metas = arquivo_google.add_worksheet(title="Metas", rows="1000", cols="4")
         planilha_metas.update(values=[["Email_Dono", "Meta", "Alvo", "Guardado"]], range_name='A1')
+
+    try:
+        planilha_usuarios = arquivo_google.worksheet("Usuarios")
+    except gspread.exceptions.WorksheetNotFound:
+        planilha_usuarios = arquivo_google.add_worksheet(
+            title="Usuarios",
+            rows="1000",
+            cols="3"
+        )
+        planilha_usuarios.update(
+            values=[["Nome", "Email", "Senha_Hash"]],
+            range_name="A1"
+        )
 
 except Exception as e:
     st.error("⚠️ Erro ao conectar com o Google. Verifique o arquivo credenciais.json.")
