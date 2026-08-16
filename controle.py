@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import gspread
 import json
+import bcrypt
 from google.oauth2.service_account import Credentials
 
 st.set_page_config(page_title="Lúcido | Finanças", page_icon="💸", layout="wide")
