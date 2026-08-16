@@ -24,7 +24,7 @@ try:
     
     planilha_dados = arquivo_google.sheet1
     
-        try:
+    try:
         planilha_metas = arquivo_google.worksheet("Metas")
     except gspread.exceptions.WorksheetNotFound:
         planilha_metas = arquivo_google.add_worksheet(title="Metas", rows="1000", cols="4")
