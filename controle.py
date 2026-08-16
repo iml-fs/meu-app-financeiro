@@ -64,6 +64,14 @@ def carregar_metas():
     if dados_metas: return pd.DataFrame(dados_metas)
     return pd.DataFrame(columns=["Email_Dono", "Meta", "Alvo", "Guardado"])
 
+def carregar_usuarios():
+    dados_usuarios = planilha_usuarios.get_all_records()
+
+    if dados_usuarios:
+        return pd.DataFrame(dados_usuarios)
+
+    return pd.DataFrame(columns=["Nome", "Email", "Senha_Hash"])
+
 def salvar_metas_google(df):
     planilha_metas.clear()
     lista_dados = [df.columns.values.tolist()] + df.values.tolist()
