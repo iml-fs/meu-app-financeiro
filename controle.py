@@ -170,7 +170,15 @@ if not st.session_state["logado"]:
                 ):
                     st.warning("Já existe uma conta com esse e-mail.")
                 else:
-                    st.success("E-mail disponível para cadastro!")
+                    senha_hash = criar_hash_senha(senha_cadastro)
+
+                    planilha_usuarios.append_row([
+                        nome_cadastro.strip(),
+                        email_normalizado,
+                        senha_hash
+                    ])
+
+                    st.success("Conta criada com sucesso!")
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
 # ==========================================
