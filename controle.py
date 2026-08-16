@@ -154,6 +154,9 @@ if not st.session_state["logado"]:
         if st.button("Criar minha conta"):
             if nome_cadastro.strip() == "" or email_cadastro.strip() == "" or senha_cadastro == "":
                 st.warning("Preencha todos os campos.")
+                
+            elif len(senha_cadastro) < 8:
+                st.warning("A senha precisa ter pelo menos 8 caracteres.")
             elif senha_cadastro != confirmar_senha:
                 st.warning("As senhas não coincidem.")
             else:
