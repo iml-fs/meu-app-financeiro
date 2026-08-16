@@ -160,7 +160,17 @@ if not st.session_state["logado"]:
             elif senha_cadastro != confirmar_senha:
                 st.warning("As senhas não coincidem.")
             else:
-                st.success("Senhas conferem!")
+                usuarios = carregar_usuarios()
+
+                email_normalizado = email_cadastro.strip().lower()
+
+                if (
+                    not usuarios.empty
+                    and email_normalizado in usuarios["Email"].astype(str).str.lower().values
+                ):
+                    st.warning("Já existe uma conta com esse e-mail.")
+                else:
+                    st.success("E-mail disponível para cadastro!")
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
 # ==========================================
