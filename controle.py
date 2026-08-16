@@ -78,6 +78,15 @@ def criar_hash_senha(senha):
 
     return hash_bytes.decode("utf-8")
 
+def verificar_senha(senha_digitada, senha_hash):
+    try:
+        return bcrypt.checkpw(
+            senha_digitada.encode("utf-8"),
+            senha_hash.encode("utf-8")
+        )
+    except:
+        return False
+
 def salvar_metas_google(df):
     planilha_metas.clear()
     lista_dados = [df.columns.values.tolist()] + df.values.tolist()
