@@ -360,7 +360,9 @@ else:
     with aba_editar:
         st.subheader("⚙️ Gerenciar Meus Registros")
         if not dados.empty:
-            dados_para_editar = dados.drop(columns=["Mes_Ano"]) if "Mes_Ano" in dados.columns else dados
+            dados_para_editar = dados.drop(
+    columns=[col for col in ["Mes_Ano", "Email_Dono"] if col in dados.columns]
+)
             
             # 3. Ajuste da data para o formato BR na tabela de edição
             dados_editados = st.data_editor(
@@ -373,6 +375,7 @@ else:
             )
             
             if st.button("Salvar Alterações"):
+                dados_editados["Email_Dono"] = usuario_logado
                 df_sem_usuario = df_completo[df_completo["Email_Dono"] != usuario_logado]
                 df_atualizado = pd.concat([df_sem_usuario, dados_editados], ignore_index=True)
                 salvar_tabela(df_atualizado)
