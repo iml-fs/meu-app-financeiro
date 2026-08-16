@@ -100,27 +100,28 @@ if "logado" not in st.session_state:
 
 if not st.session_state["logado"]:
     st.title("🔒 Acesso Restrito")
+
     usuario = st.text_input("E-mail do Cliente")
     senha = st.text_input("Senha", type="password")
-    
-   if st.button("Entrar"):
-    usuarios = carregar_usuarios()
 
-    usuario_encontrado = usuarios[
-        usuarios["Email"].astype(str).str.lower() == usuario.strip().lower()
-    ]
+    if st.button("Entrar"):
+        usuarios = carregar_usuarios()
 
- if not usuario_encontrado.empty:
-        senha_hash = str(usuario_encontrado.iloc[0]["Senha_Hash"])
+        usuario_encontrado = usuarios[
+            usuarios["Email"].astype(str).str.lower() == usuario.strip().lower()
+        ]
 
-        if verificar_senha(senha, senha_hash):
-            st.session_state["logado"] = True
-            st.session_state["usuario_atual"] = usuario.strip().lower()
-            st.rerun()
+        if not usuario_encontrado.empty:
+            senha_hash = str(usuario_encontrado.iloc[0]["Senha_Hash"])
+
+            if verificar_senha(senha, senha_hash):
+                st.session_state["logado"] = True
+                st.session_state["usuario_atual"] = usuario.strip().lower()
+                st.rerun()
+            else:
+                st.error("E-mail ou senha incorretos!")
         else:
             st.error("E-mail ou senha incorretos!")
-    else:
-        st.error("E-mail ou senha incorretos!")
 
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
