@@ -18,6 +18,7 @@ try:
     scopes=escopos
     cliente = gspread.authorize(credenciais)
     arquivo_google = cliente.open("Banco_App_Financeiro")
+    )
     
     planilha_dados = arquivo_google.sheet1
     
