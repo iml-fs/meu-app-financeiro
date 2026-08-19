@@ -391,6 +391,10 @@ else:
             )
             
             if st.button("Salvar Alterações"):
+                ids_antes = set(dados_para_editar["ID"].astype(int))
+                ids_depois = set(dados_editados["ID"].astype(int))
+                ids_excluidos = ids_antes - ids_depois
+                
                 for _, registro in dados_editados.iterrows():
                     id_registro = int(registro["ID"])
                     celula_id = planilha_dados.find(str(id_registro), in_column=1)
@@ -401,7 +405,10 @@ else:
                     planilha_dados.update_cell(numero_linha, 5, registro["Descrição"])
                     planilha_dados.update_cell(numero_linha, 6, float(registro["Valor"]))
                     planilha_dados.update_cell(numero_linha, 7, registro["Tipo"])
-                    
+                
+                for id_excluido in ids_excluidos:
+                celula_id = planilha_dados.find(str(id_excluido), in_column=1)
+                planilha_dados.delete_rows(celula_id.row) 
                
                 st.success("Alterações salvas na nuvem!")
                 st.rerun()
