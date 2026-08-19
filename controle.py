@@ -211,9 +211,14 @@ else:
                 "Categoria": [categoria], "Descrição": [descricao], 
                 "Valor": [float(valor)], "Tipo": [tipo]
             })
-            df_completo = carregar_dados()
-            df_atualizado = pd.concat([df_completo, novo_registro], ignore_index=True)
-            salvar_tabela(df_atualizado)
+           planilha_dados.append_row([
+    usuario_logado,
+    str(data),
+    categoria,
+    descricao,
+    float(valor),
+    tipo
+])
             st.sidebar.success("Salvo direto na nuvem! ☁️")
             st.rerun()
         else:
