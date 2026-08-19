@@ -199,22 +199,19 @@ else:
     valor = st.sidebar.number_input("Valor (R$)", min_value=0.0, format="%.2f")
     tipo = st.sidebar.selectbox("Tipo", ["Entrada (Ganho)", "Saída (Custo/Gasto)"])
 
-    if tipo == "Saída (Custo/Gasto)":
-        categoria = st.sidebar.selectbox("Categoria", ["Alimentação", "Moradia", "Transporte", "Saúde", "Educação", "Lazer", "Reserva/Investimento", "Outros"])
+       if tipo == "Saída (Custo/Gasto)":
+        categoria = st.sidebar.selectbox(
+            "Categoria",
+            ["Alimentação", "Moradia", "Transporte", "Saúde", "Educação", "Lazer", "Reserva/Investimento", "Outros"]
+        )
     else:
-        categoria = st.sidebar.selectbox("Categoria", ["Salário", "Renda Extra", "Rendimento", "Outros"])
+        categoria = st.sidebar.selectbox(
+            "Categoria",
+            ["Salário", "Renda Extra", "Rendimento", "Outros"]
+        )
 
-        if st.sidebar.button("Salvar Registro"):
+    if st.sidebar.button("Salvar Registro"):
         if descricao != "" and valor > 0:
-            novo_registro = pd.DataFrame({
-                "Email_Dono": [usuario_logado],
-                "Data": [str(data)],
-                "Categoria": [categoria],
-                "Descrição": [descricao],
-                "Valor": [float(valor)],
-                "Tipo": [tipo]
-            })
-
             planilha_dados.append_row([
                 usuario_logado,
                 str(data),
