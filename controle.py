@@ -391,10 +391,18 @@ else:
             )
             
             if st.button("Salvar Alterações"):
-                dados_editados["Email_Dono"] = usuario_logado
-                df_sem_usuario = df_completo[df_completo["Email_Dono"] != usuario_logado]
-                df_atualizado = pd.concat([df_sem_usuario, dados_editados], ignore_index=True)
-                salvar_tabela(df_atualizado)
+                for _, registro in dados_editados.iterrows():
+                    id_registro = int(registro["ID"])
+                    celula_id = planilha_dados.find(str(id_registro), in_column=1)
+                    numero_linha = celula_id.row
+                    
+                    planilha_dados.update_cell(numero_linha, 3, str(registro["Data"]))
+                    planilha_dados.update_cell(numero_linha, 4, registro["Categoria"])
+                    planilha_dados.update_cell(numero_linha, 5, registro["Descrição"])
+                    planilha_dados.update_cell(numero_linha, 6, float(registro["Valor"]))
+                    planilha_dados.update_cell(numero_linha, 7, registro["Tipo"])
+                    
+               
                 st.success("Alterações salvas na nuvem!")
                 st.rerun()
         else:
