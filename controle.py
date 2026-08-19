@@ -199,7 +199,7 @@ else:
     valor = st.sidebar.number_input("Valor (R$)", min_value=0.0, format="%.2f")
     tipo = st.sidebar.selectbox("Tipo", ["Entrada (Ganho)", "Saída (Custo/Gasto)"])
 
-       if tipo == "Saída (Custo/Gasto)":
+    if tipo == "Saída (Custo/Gasto)":
         categoria = st.sidebar.selectbox(
             "Categoria",
             ["Alimentação", "Moradia", "Transporte", "Saúde", "Educação", "Lazer", "Reserva/Investimento", "Outros"]
