@@ -385,6 +385,7 @@ else:
                 use_container_width=True, 
                 num_rows="dynamic",
                 column_config={
+                    "ID": st.column_config.NumberColumn("ID", disabled=True),
                     "Data": st.column_config.DateColumn("Data", format="DD/MM/YYYY")
                 }
             )
