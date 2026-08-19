@@ -204,21 +204,26 @@ else:
     else:
         categoria = st.sidebar.selectbox("Categoria", ["Salário", "Renda Extra", "Rendimento", "Outros"])
 
-    if st.sidebar.button("Salvar Registro"):
+        if st.sidebar.button("Salvar Registro"):
         if descricao != "" and valor > 0:
             novo_registro = pd.DataFrame({
-                "Email_Dono": [usuario_logado], "Data": [str(data)], 
-                "Categoria": [categoria], "Descrição": [descricao], 
-                "Valor": [float(valor)], "Tipo": [tipo]
+                "Email_Dono": [usuario_logado],
+                "Data": [str(data)],
+                "Categoria": [categoria],
+                "Descrição": [descricao],
+                "Valor": [float(valor)],
+                "Tipo": [tipo]
             })
-           planilha_dados.append_row([
-    usuario_logado,
-    str(data),
-    categoria,
-    descricao,
-    float(valor),
-    tipo
-])
+
+            planilha_dados.append_row([
+                usuario_logado,
+                str(data),
+                categoria,
+                descricao,
+                float(valor),
+                tipo
+            ])
+
             st.sidebar.success("Salvo direto na nuvem! ☁️")
             st.rerun()
         else:
