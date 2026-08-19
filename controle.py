@@ -212,7 +212,15 @@ else:
 
     if st.sidebar.button("Salvar Registro"):
         if descricao != "" and valor > 0:
+            ids_existentes = planilha_dados.col_values(1)[1:]
+
+            if ids_existentes:
+                novo_id = max(int(id) for id in ids_existentes if id.strip()) + 1
+            else:
+                novo_id = 1
+            
             planilha_dados.append_row([
+                novo_id,
                 usuario_logado,
                 str(data),
                 categoria,
