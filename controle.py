@@ -407,8 +407,8 @@ else:
                     planilha_dados.update_cell(numero_linha, 7, registro["Tipo"])
                 
                 for id_excluido in ids_excluidos:
-                celula_id = planilha_dados.find(str(id_excluido), in_column=1)
-                planilha_dados.delete_rows(celula_id.row) 
+                    celula_id = planilha_dados.find(str(id_excluido), in_column=1)
+                    planilha_dados.delete_rows(celula_id.row) 
                
                 st.success("Alterações salvas na nuvem!")
                 st.rerun()
