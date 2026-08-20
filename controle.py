@@ -315,7 +315,11 @@ else:
                 ids_metas = planilha_metas.col_values(1)[1:]
 
                 if ids_metas:
-                    novo_id_meta = max(int(id) for id in ids_metas if id.strip()) + 1
+                    novo_id_meta = max(
+                        int(id)
+                        for id in ids_metas
+                        if str(id).strip().isdigit()
+                    ) + 1
                 
                 else:
                     novo_id_meta = 1
