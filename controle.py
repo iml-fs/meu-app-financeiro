@@ -320,7 +320,7 @@ else:
                 else:
                     novo_id_meta = 1
                    
-               planilha_metas.append_row([
+                planilha_metas.append_row([
                     usuario_logado,
                     nome_meta,
                     float(valor_meta),
