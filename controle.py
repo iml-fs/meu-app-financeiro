@@ -437,6 +437,10 @@ else:
                     id_registro = int(registro["ID"])
                     celula_id = planilha_dados.find(str(id_registro), in_column=1)
                     numero_linha = celula_id.row
+                    email_dono_linha = planilha_dados.cell(numero_linha, 2).value
+
+                    if email_dono_linha != usuario_logado:
+                        continue
                     
                     planilha_dados.update_cell(numero_linha, 3, str(registro["Data"]))
                     planilha_dados.update_cell(numero_linha, 4, registro["Categoria"])
@@ -446,6 +450,9 @@ else:
                 
                 for id_excluido in ids_excluidos:
                     celula_id = planilha_dados.find(str(id_excluido), in_column=1)
+                    email_dono_linha = planilha_dados.cell(celula_id.row, 2).value
+                    if email_dono_linha != usuario_logado:
+                        continue
                     planilha_dados.delete_rows(celula_id.row) 
                
                 st.success("Alterações salvas na nuvem!")
