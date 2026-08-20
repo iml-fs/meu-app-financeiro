@@ -300,11 +300,12 @@ else:
         
         if st.button("Criar Nova Meta"):
             if nome_meta != "" and valor_meta > 0:
-                nova_meta = pd.DataFrame({"Email_Dono": [usuario_logado], "Meta": [nome_meta], "Alvo": [valor_meta], "Guardado": [0.0]})
-                
-                df_metas_completo = carregar_metas()
-                df_metas_atualizado = pd.concat([df_metas_completo, nova_meta], ignore_index=True)
-                salvar_metas_google(df_metas_atualizado)
+                planilha_metas.append_row([
+                    usuario_logado,
+                    nome_meta,
+                    float(valor_meta),
+                    0.0
+                ])
                 
                 st.success("Objetivo criado com sucesso na nuvem!")
                 st.rerun()
