@@ -364,30 +364,30 @@ else:
             valor_guardar = col_add2.number_input("Valor a adicionar (R$)", min_value=0.0, format="%.2f", key="add_dinheiro")
             
             if st.button("Guardar Dinheiro"):
-        linha_meta = df_minhas_metas[
-            df_minhas_metas["ID"] == meta_id_escolhida
-        ].iloc[0]
+               linha_meta = df_minhas_metas[
+                   df_minhas_metas["ID"] == meta_id_escolhida
+               ].iloc[0]
 
-        if linha_meta["Email_Dono"] != usuario_logado:
-            st.error("Você não tem permissão para alterar esta meta.")
-        else:
-            celula_id = planilha_metas.find(
+               if linha_meta["Email_Dono"] != usuario_logado:
+                   st.error("Você não tem permissão para alterar esta meta.")
+               else:
+                   celula_id = planilha_metas.find(
                 str(int(meta_id_escolhida)),
                 in_column=1
             )
 
-            numero_linha = celula_id.row
-            guardado_atual = float(linha_meta["Guardado"])
-            novo_guardado = guardado_atual + float(valor_guardar)
-
-            planilha_metas.update_cell(
-                numero_linha,
-                5,
-                novo_guardado
-            )
-
-            st.success(f"R$ {valor_guardar} adicionados!")
-            st.rerun()
+                numero_linha = celula_id.row
+                guardado_atual = float(linha_meta["Guardado"])
+                novo_guardado = guardado_atual + float(valor_guardar)
+    
+                planilha_metas.update_cell(
+                    numero_linha,
+                    5,
+                    novo_guardado
+                )
+    
+                st.success(f"R$ {valor_guardar} adicionados!")
+                st.rerun()
         else:
             st.info("Você ainda não tem objetivos cadastrados. Crie sua primeira meta logo acima!")
 
