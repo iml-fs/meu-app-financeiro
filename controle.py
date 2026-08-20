@@ -93,10 +93,6 @@ def verificar_senha(senha_digitada, senha_hash):
     except:
         return False
 
-def salvar_metas_google(df):
-    planilha_metas.clear()
-    lista_dados = [df.columns.values.tolist()] + df.values.tolist()
-    planilha_metas.update(values=lista_dados, range_name='A1')
 
 # ==========================================
 # 1. SISTEMA DE LOGIN
