@@ -4,7 +4,10 @@ import plotly.express as px
 import gspread
 import json
 import bcrypt
+import resend
 from google.oauth2.service_account import Credentials
+
+resend.api_key = st.secrets["RESEND_API_KEY"]
 
 st.set_page_config(page_title="Lúcido | Finanças", page_icon="💸", layout="wide")
 
