@@ -375,19 +375,19 @@ else:
                 str(int(meta_id_escolhida)),
                 in_column=1
             )
+                   numero_linha = celula_id.row
+                   guardado_atual = float(linha_metal["Guardado"])
+                   novo_guardado = guardado_atual + float(valor_guardar)
 
-                numero_linha = celula_id.row
-                guardado_atual = float(linha_meta["Guardado"])
-                novo_guardado = guardado_atual + float(valor_guardar)
-    
-                planilha_metas.update_cell(
-                    numero_linha,
-                    5,
-                    novo_guardado
-                )
-    
-                st.success(f"R$ {valor_guardar} adicionados!")
-                st.rerun()
+                   planilha_metas.update_cell(
+                       numero_linha,
+                       5,
+                       novo_guardado
+                   )
+                   
+                   st.success(f"R$ {valor_guardar} adicionados!")
+                   st.rerun()
+                   
         else:
             st.info("Você ainda não tem objetivos cadastrados. Crie sua primeira meta logo acima!")
 
