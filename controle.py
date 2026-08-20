@@ -68,7 +68,7 @@ def carregar_dados():
 def carregar_metas():
     dados_metas = planilha_metas.get_all_records()
     if dados_metas: return pd.DataFrame(dados_metas)
-    return pd.DataFrame(columns=["Email_Dono", "Meta", "Alvo", "Guardado"])
+    return pd.DataFrame(columns=["ID", "Email_Dono", "Meta", "Alvo", "Guardado"])
 
 def carregar_usuarios():
     dados_usuarios = planilha_usuarios.get_all_records()
@@ -354,18 +354,40 @@ else:
             st.write("---")
             st.write("💰 **Adicionar dinheiro à caixinha:**")
             col_add1, col_add2 = st.columns(2)
-            meta_escolhida = col_add1.selectbox("Escolha o objetivo", df_minhas_metas["Meta"].tolist())
+            meta_id_escolhida = col_add1.selectbox(
+                "Escolha o objetivo",
+                df_minhas_metas["ID"].tolist(),
+                format_func=lambda id_meta: df_minhas_metas.loc[
+                    df_minhas_metas["ID"] == id_meta, "Meta"
+                ].iloc[0]
+            )
             valor_guardar = col_add2.number_input("Valor a adicionar (R$)", min_value=0.0, format="%.2f", key="add_dinheiro")
             
             if st.button("Guardar Dinheiro"):
-                mascara_dono = df_metas_completo["Email_Dono"] == usuario_logado
-                mascara_meta = df_metas_completo["Meta"] == meta_escolhida
-                
-                df_metas_completo.loc[mascara_dono & mascara_meta, "Guardado"] += float(valor_guardar)
-                salvar_metas_google(df_metas_completo)
-                
-                st.success(f"R$ {valor_guardar} adicionados!")
-                st.rerun()
+        linha_meta = df_minhas_metas[
+            df_minhas_metas["ID"] == meta_id_escolhida
+        ].iloc[0]
+
+        if linha_meta["Email_Dono"] != usuario_logado:
+            st.error("Você não tem permissão para alterar esta meta.")
+        else:
+            celula_id = planilha_metas.find(
+                str(int(meta_id_escolhida)),
+                in_column=1
+            )
+
+            numero_linha = celula_id.row
+            guardado_atual = float(linha_meta["Guardado"])
+            novo_guardado = guardado_atual + float(valor_guardar)
+
+            planilha_metas.update_cell(
+                numero_linha,
+                5,
+                novo_guardado
+            )
+
+            st.success(f"R$ {valor_guardar} adicionados!")
+            st.rerun()
         else:
             st.info("Você ainda não tem objetivos cadastrados. Crie sua primeira meta logo acima!")
 
