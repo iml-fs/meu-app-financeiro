@@ -312,7 +312,14 @@ else:
         
         if st.button("Criar Nova Meta"):
             if nome_meta != "" and valor_meta > 0:
-                planilha_metas.append_row([
+                ids_metas = planilha_metas.col_values(1)[1:]
+
+                if ids_metas:
+                    novo_id_meta = max(int(id) for id in ids_metas if id.strip()) + 1
+               else:
+                    novo_id_meta = 1
+                   
+               planilha_metas.append_row([
                     usuario_logado,
                     nome_meta,
                     float(valor_meta),
