@@ -316,7 +316,8 @@ else:
 
                 if ids_metas:
                     novo_id_meta = max(int(id) for id in ids_metas if id.strip()) + 1
-               else:
+                
+                else:
                     novo_id_meta = 1
                    
                planilha_metas.append_row([
