@@ -52,12 +52,6 @@ def carregar_dados():
     if dados: return pd.DataFrame(dados)
     return pd.DataFrame(columns=["Email_Dono", "Data", "Categoria", "Descrição", "Valor", "Tipo"])
 
-def salvar_tabela(df):
-    planilha_dados.clear()
-    df_salvar = df.copy()
-    df_salvar["Data"] = df_salvar["Data"].astype(str)
-    lista_dados = [df_salvar.columns.values.tolist()] + df_salvar.values.tolist()
-    planilha_dados.update(values=lista_dados, range_name='A1')
 
 def carregar_metas():
     dados_metas = planilha_metas.get_all_records()
