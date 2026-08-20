@@ -376,7 +376,7 @@ else:
                 in_column=1
             )
                    numero_linha = celula_id.row
-                   guardado_atual = float(linha_metal["Guardado"])
+                   guardado_atual = float(linha_meta["Guardado"])
                    novo_guardado = guardado_atual + float(valor_guardar)
 
                    planilha_metas.update_cell(
