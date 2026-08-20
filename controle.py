@@ -12,23 +12,30 @@ st.set_page_config(page_title="Lúcido | Finanças", page_icon="💸", layout="w
 # CONEXÃO COM O GOOGLE SHEETS
 # ==========================================
 escopos = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-
-try:
+@st.cache_resource
+def conectar_google():
     credenciais = Credentials.from_service_account_info(
-    json.loads(st.secrets["gspread"]["json_key"]),
-    scopes=escopos
+        json.loads(st.secrets["gspread"]["json_key"]),
+        scopes=escopos
     )
+
     cliente = gspread.authorize(credenciais)
     arquivo_google = cliente.open("Banco_App_Financeiro")
-    
-    
+
     planilha_dados = arquivo_google.sheet1
-    
+
     try:
         planilha_metas = arquivo_google.worksheet("Metas")
     except gspread.exceptions.WorksheetNotFound:
-        planilha_metas = arquivo_google.add_worksheet(title="Metas", rows="1000", cols="4")
-        planilha_metas.update(values=[["Email_Dono", "Meta", "Alvo", "Guardado"]], range_name='A1')
+        planilha_metas = arquivo_google.add_worksheet(
+            title="Metas",
+            rows="1000",
+            cols="4"
+        )
+        planilha_metas.update(
+            values=[["Email_Dono", "Meta", "Alvo", "Guardado"]],
+            range_name="A1"
+        )
 
     try:
         planilha_usuarios = arquivo_google.worksheet("Usuarios")
@@ -43,8 +50,13 @@ try:
             range_name="A1"
         )
 
+    return planilha_dados, planilha_metas, planilha_usuarios
+
+
+try:
+    planilha_dados, planilha_metas, planilha_usuarios = conectar_google()
 except Exception as e:
-    st.error("⚠️ Erro ao conectar com o Google. Verifique o arquivo credenciais.json.")
+    st.error("⚠️ Erro ao conectar com o Google.")
     st.stop()
 
 def carregar_dados():
