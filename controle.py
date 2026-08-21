@@ -7,7 +7,7 @@ import bcrypt
 import resend
 from google.oauth2.service_account import Credentials
 
-resend.api_key = st.secrets["RESEND_API_KEY"]
+resend.api_key = st.secrets["resend"]["api_key"]
 
 st.set_page_config(page_title="Lúcido | Finanças", page_icon="💸", layout="wide")
 
