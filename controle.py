@@ -106,7 +106,7 @@ if "logado" not in st.session_state:
 if not st.session_state["logado"]:
     st.title("🔒 Acesso Restrito")
 
-    aba_login, aba_cadastro = st.tabs(["🔐 Entrar", "📝 Criar conta"])
+    aba_login, aba_cadastro, aba_recuperar = st.tabs(["🔐 Entrar", "📝 Criar conta", "🔑 Esqueci minha senha"])
 
     with aba_login:
         usuario = st.text_input("E-mail do Cliente")
