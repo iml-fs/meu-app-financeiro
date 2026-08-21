@@ -184,6 +184,11 @@ if not st.session_state["logado"]:
                     ])
 
                     st.success("Conta criada com sucesso!")
+
+with aba_recuperar:
+    st.subheader("🔑 Recuperar senha")
+    email_recuperacao = st.text_input("Digite seu e-mail", key="email_recuperacao")
+    
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
 # ==========================================
