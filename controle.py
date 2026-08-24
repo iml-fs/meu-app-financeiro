@@ -229,7 +229,7 @@ if not st.session_state["logado"]:
                 else:
                     st.error("Não foi possível enviar o código. Tente novamente.")
 
-       if "codigo_recuperacao" in st.session_state:
+    if "codigo_recuperacao" in st.session_state:
            st.divider()
            st.write("Digite o código recebido no seu e-mail e escolha uma nova senha.")
 
