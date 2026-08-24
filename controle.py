@@ -211,6 +211,14 @@ if not st.session_state["logado"]:
         email_recuperacao = st.text_input("Digite seu e-mail", key="email_recuperacao")
 
         if st.button("Enviar código de recuperação"):
+            ultimo_envio = st.session_state.get("ultimo_envio_codigo", 0)
+            segundos_desde_envio = time.time() - ultimo_envio
+            
+            if segundos_desde_envio < 60:
+                segundos_restantes = int(60 - segundos_desde_envio)
+                st.warning(f"Aguarde {segundos_restantes} segundos antes de solicitar outro código.")
+                st.stop()
+            
             email_digitado = email_recuperacao.strip().lower()
             usuarios = carregar_usuarios()
 
@@ -228,6 +236,7 @@ if not st.session_state["logado"]:
                     st.session_state["email_recuperacao_confirmado"] = email_digitado
                     st.session_state["tempo_codigo_recuperacao"] = time.time()
                     st.session_state["tentativas_codigo"] = 0
+                    st.session_state["ultimo_envio_codigo"] = time.time()
                     st.success("Se este e-mail estiver cadastrado, você receberá um código de recuperação.")
                 else:
                     st.success("Se este e-mail estiver cadastrado, você receberá um código de recuperação.")
