@@ -181,10 +181,15 @@ if not st.session_state["logado"]:
             if nome_cadastro.strip() == "" or email_cadastro.strip() == "" or senha_cadastro == "":
                 st.warning("Preencha todos os campos.")
                 
-            elif len(senha_cadastro) < 8:
-                st.warning("A senha precisa ter pelo menos 8 caracteres.")
+            elif "@" not in email_cadastro or "." not in email_cadastro.split("@")[-1]:
+                st.warning("Digite um e-mail válido.")   
+                
+            elif len(senha_cadastro) < 10:
+                st.warning("A senha precisa ter pelo menos 10 caracteres.")
+                
             elif senha_cadastro != confirmar_senha:
                 st.warning("As senhas não coincidem.")
+                
             else:
                 usuarios = carregar_usuarios()
 
@@ -293,8 +298,8 @@ if not st.session_state["logado"]:
                                    f"Código inválido. Você ainda tem {tentativas_restantes} tentativa(s)."
                                )
 
-               elif len(nova_senha) < 8:
-                   st.error("A nova senha deve ter pelo menos 8 caracteres.")
+               elif len(nova_senha) < 10:
+                   st.error("A nova senha deve ter pelo menos 10 caracteres.")
 
                elif nova_senha != confirmar_nova_senha:
                    st.error("As senhas não coincidem.")
