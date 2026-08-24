@@ -6,6 +6,7 @@ import json
 import bcrypt
 import resend
 import secrets
+import time
 from google.oauth2.service_account import Credentials
 
 resend.api_key = st.secrets["resend"]["api_key"]
@@ -225,6 +226,7 @@ if not st.session_state["logado"]:
                 if enviar_codigo_recuperacao(email_digitado, codigo):
                     st.session_state["codigo_recuperacao"] = codigo
                     st.session_state["email_recuperacao_confirmado"] = email_digitado
+                    st.session_state["tempo_codigo_recuperacao"] = time.time()
                     st.success("Código enviado! Verifique seu e-mail.")
                 else:
                     st.error("Não foi possível enviar o código. Tente novamente.")
@@ -251,7 +253,14 @@ if not st.session_state["logado"]:
            )
 
            if st.button("Alterar senha"):
-               if not secrets.compare_digest(
+               codigo_expirado = (
+                   time.time() - st.session_state["tempo_codigo_recuperacao"] > 600
+               )
+
+               if codigo_expirado:
+                   st.error("Este código expirou. Solicite um novo código.")
+                   
+               elif not secrets.compare_digest(
                    codigo_digitado.strip(),
                    st.session_state["codigo_recuperacao"]
                ):
@@ -291,6 +300,7 @@ if not st.session_state["logado"]:
 
                        del st.session_state["codigo_recuperacao"]
                        del st.session_state["email_recuperacao_confirmado"]
+                       del st.session_state["tempo_codigo_recuperacao"]
 
                        st.success(
                            "Senha alterada com sucesso! Agora você já pode entrar."
