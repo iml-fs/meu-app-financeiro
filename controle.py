@@ -219,7 +219,7 @@ if not st.session_state["logado"]:
             ]
 
             if usuario_encontrado.empty:
-                st.error("E-mail não encontrado.")
+                st.success("Se este e-mail estiver cadastrado, você receberá um código de recuperação.")
             else:
                 codigo = str(secrets.randbelow(900000) + 100000)
 
@@ -228,9 +228,9 @@ if not st.session_state["logado"]:
                     st.session_state["email_recuperacao_confirmado"] = email_digitado
                     st.session_state["tempo_codigo_recuperacao"] = time.time()
                     st.session_state["tentativas_codigo"] = 0
-                    st.success("Código enviado! Verifique seu e-mail.")
+                    st.success("Se este e-mail estiver cadastrado, você receberá um código de recuperação.")
                 else:
-                    st.error("Não foi possível enviar o código. Tente novamente.")
+                    st.success("Se este e-mail estiver cadastrado, você receberá um código de recuperação.")
 
     if "codigo_recuperacao" in st.session_state:
            st.divider()
