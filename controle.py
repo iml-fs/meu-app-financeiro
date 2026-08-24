@@ -227,6 +227,7 @@ if not st.session_state["logado"]:
                     st.session_state["codigo_recuperacao"] = codigo
                     st.session_state["email_recuperacao_confirmado"] = email_digitado
                     st.session_state["tempo_codigo_recuperacao"] = time.time()
+                    st.session_state["tentativas_codigo"] = 0
                     st.success("Código enviado! Verifique seu e-mail.")
                 else:
                     st.error("Não foi possível enviar o código. Tente novamente.")
@@ -264,7 +265,24 @@ if not st.session_state["logado"]:
                    codigo_digitado.strip(),
                    st.session_state["codigo_recuperacao"]
                ):
-                   st.error("Código inválido.")
+                           st.session_state["tentativas_codigo"] += 1
+
+                           tentativas_restantes = 5 - st.session_state["tentativas_codigo"]
+
+                           if st.session_state["tentativas_codigo"] >= 5:
+                               del st.session_state["codigo_recuperacao"]
+                               del st.session_state["email_recuperacao_confirmado"]
+                               del st.session_state["tempo_codigo_recuperacao"]
+                               del st.session_state["tentativas_codigo"]
+                               
+
+                               st.error(
+                                   "Você excedeu o limite de tentativas. Solicite um novo código."
+                               )
+                           else:
+                               st.error(
+                                   f"Código inválido. Você ainda tem {tentativas_restantes} tentativa(s)."
+                               )
 
                elif len(nova_senha) < 8:
                    st.error("A nova senha deve ter pelo menos 8 caracteres.")
@@ -301,6 +319,7 @@ if not st.session_state["logado"]:
                        del st.session_state["codigo_recuperacao"]
                        del st.session_state["email_recuperacao_confirmado"]
                        del st.session_state["tempo_codigo_recuperacao"]
+                       del st.session_state["tentativas_codigo"]
 
                        st.success(
                            "Senha alterada com sucesso! Agora você já pode entrar."
