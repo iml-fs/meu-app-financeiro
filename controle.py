@@ -5,6 +5,7 @@ import gspread
 import json
 import bcrypt
 import resend
+import secrets
 from google.oauth2.service_account import Credentials
 
 resend.api_key = st.secrets["resend"]["api_key"]
@@ -94,6 +95,25 @@ def verificar_senha(senha_digitada, senha_hash):
             senha_hash.encode("utf-8")
         )
     except:
+        return False
+        
+def enviar_codigo_recuperacao(email, codigo):
+    try:
+        resend.Emails.send({
+            "from": "onboarding@resend.dev",
+            "to": email,
+            "subject": "Código de recuperação - Lúcido",
+            "html": f"""
+                <h2>Recuperação de senha</h2>
+                <p>Seu código de recuperação é:</p>
+                <h1>{codigo}</h1>
+                <p>Use esse código no Lúcido para criar uma nova senha.</p>
+            """
+        })
+
+        return True
+
+    except Exception:
         return False
 
 
@@ -188,6 +208,93 @@ if not st.session_state["logado"]:
     with aba_recuperar:
         st.subheader("🔑 Recuperar senha")
         email_recuperacao = st.text_input("Digite seu e-mail", key="email_recuperacao")
+
+        if st.button("Enviar código de recuperação"):
+            email_digitado = email_recuperacao.strip().lower()
+            usuarios = carregar_usuarios()
+
+            usuario_encontrado = usuarios[
+                usuarios["Email"].astype(str).str.lower() == email_digitado
+            ]
+
+            if usuario_encontrado.empty:
+                st.error("E-mail não encontrado.")
+            else:
+                codigo = str(secrets.randbelow(900000) + 100000)
+
+                if enviar_codigo_recuperacao(email_digitado, codigo):
+                    st.session_state["codigo_recuperacao"] = codigo
+                    st.session_state["email_recuperacao_confirmado"] = email_digitado
+                    st.success("Código enviado! Verifique seu e-mail.")
+                else:
+                    st.error("Não foi possível enviar o código. Tente novamente.")
+
+       if "codigo_recuperacao" in st.session_state:
+           st.divider()
+           st.write("Digite o código recebido no seu e-mail e escolha uma nova senha.")
+
+           codigo_digitado = st.text_input(
+               "Código de recuperação",
+               key="codigo_digitado"
+           )
+
+           nova_senha = st.text_input(
+               "Nova senha",
+               type="password",
+               key="nova_senha"
+           )
+
+           confirmar_nova_senha = st.text_input(
+               "Confirme a nova senha",
+               type="password",
+               key="confirmar_nova_senha"
+           )
+
+           if st.button("Alterar senha"):
+               if not secrets.compare_digest(
+                   codigo_digitado.strip(),
+                   st.session_state["codigo_recuperacao"]
+               ):
+                   st.error("Código inválido.")
+
+               elif len(nova_senha) < 8:
+                   st.error("A nova senha deve ter pelo menos 8 caracteres.")
+
+               elif nova_senha != confirmar_nova_senha:
+                   st.error("As senhas não coincidem.")
+
+               else:
+                   email_confirmado = st.session_state["email_recuperacao_confirmado"]
+                   usuarios = carregar_usuarios()
+
+                   usuario_encontrado = usuarios[
+                       usuarios["Email"].astype(str).str.lower() == email_confirmado
+                   ]
+
+                   if usuario_encontrado.empty:
+                       st.error("Usuário não encontrado.")
+
+                   else:
+                       indice_usuario = usuario_encontrado.index[0]
+                       linha_planilha = indice_usuario + 2
+
+                       nova_senha_hash = criar_hash_senha(nova_senha)
+
+                       cabecalhos = planilha_usuarios.row_values(1)
+                       coluna_senha = cabecalhos.index("Senha_Hash") + 1
+
+                       planilha_usuarios.update_cell(
+                           linha_planilha,
+                           coluna_senha,
+                           nova_senha_hash
+                       )
+
+                       del st.session_state["codigo_recuperacao"]
+                       del st.session_state["email_recuperacao_confirmado"]
+
+                       st.success(
+                           "Senha alterada com sucesso! Agora você já pode entrar."
+                       )
     
 # ==========================================
 # 2. O APLICATIVO (O Cofre)
