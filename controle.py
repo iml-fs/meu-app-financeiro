@@ -81,7 +81,7 @@ def carregar_usuarios():
     if dados_usuarios:
         return pd.DataFrame(dados_usuarios)
 
-    return pd.DataFrame(columns=["Nome", "Email", "Senha_Hash"])
+    return pd.DataFrame(columns=["Nome", "Email", "Senha_Hash", "Tentativas_Login", "Bloqueado_Ate"])
 
 def criar_hash_senha(senha):
     senha_bytes = senha.encode("utf-8")
@@ -141,13 +141,42 @@ if not st.session_state["logado"]:
             ]
 
             if not usuario_encontrado.empty:
-                senha_hash = str(usuario_encontrado.iloc[0]["Senha_Hash"])
+                registro_usuario = usuario_encontrado.iloc[0]
+                senha_hash = str(registro_usuario["Senha_Hash"])
 
-                if verificar_senha(senha, senha_hash):
+                tentativas_valor = registro_usuario.get("Tentativas_Login", 0)
+
+                try:
+                    tentativas_login = int(float(tentativas_valor or 0))
+                except (ValueError, TypeError):
+                    tentativas_login = 0
+
+                bloqueado_ate_valor = registro_usuario.get("Bloqueado_Ate", "")
+
+                try:
+                    bloqueado_ate = float(bloqueado_ate_valor) if bloqueado_ate_valor not in ("", None) else 0
+                except (ValueError, TypeError):
+                    bloqueado_ate = 0
+
+                linha_usuario_planilha = usuario_encontrado.index[0] + 2
+                
+                if bloqueado_ate > time.time():
+                    minutos_restantes = max(1, int((bloqueado_ate - time.time()) / 60) + 1)
+                    st.error(f"Muitas tentativas incorretas. Tente novamente em aproximadamente {minutos_restantes} minuto(s).")
+
+                elif verificar_senha(senha, senha_hash):
                     st.session_state["logado"] = True
                     st.session_state["usuario_atual"] = usuario.strip().lower()
                     st.rerun()
                 else:
+                    tentativas_login += 1
+
+                    planilha_usuarios.update_cell(
+                        linha_usuario_planilha,
+                        4,
+                        tentativas_login
+                    )
+                    
                     st.error("E-mail ou senha incorretos!")
             else:
                 st.error("E-mail ou senha incorretos!")
@@ -206,7 +235,9 @@ if not st.session_state["logado"]:
                     planilha_usuarios.append_row([
                         nome_cadastro.strip(),
                         email_normalizado,
-                        senha_hash
+                        senha_hash,
+                        0,
+                        ""
                     ])
 
                     st.success("Conta criada com sucesso!")
