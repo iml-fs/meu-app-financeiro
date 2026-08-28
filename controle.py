@@ -165,6 +165,17 @@ if not st.session_state["logado"]:
                     st.error(f"Muitas tentativas incorretas. Tente novamente em aproximadamente {minutos_restantes} minuto(s).")
 
                 elif verificar_senha(senha, senha_hash):
+                    planilha_usuarios.update_cell(
+                        linha_usuario_planilha,
+                    4,
+                    0
+                )
+
+                planilha_usuarios.update_cell(
+                    linha_usuario_planilha,
+                    5,
+                    ""
+                )
                     st.session_state["logado"] = True
                     st.session_state["usuario_atual"] = usuario.strip().lower()
                     st.rerun()
@@ -176,8 +187,22 @@ if not st.session_state["logado"]:
                         4,
                         tentativas_login
                     )
+                                    
+                    if tentativas_login >= 3:
+                        bloqueado_ate = time.time() + 300
+
+                        planilha_usuarios.update_cell(
+                            linha_usuario_planilha,
+                            5,
+                            bloqueado_ate
+                        )
                     
-                    st.error("E-mail ou senha incorretos!")
+                    if tentativas_login >= 3:
+                        st.error("Muitas tentativas incorretas. Sua conta foi bloqueada por 5 minutos.")
+                    else:
+                        tentativas_restantes = 3 - tentativas_login
+                        st.error(f"E-mail ou senha incorretos! Você ainda tem {tentativas_restantes} tentativa(s).")
+                        
             else:
                 st.error("E-mail ou senha incorretos!")
 
