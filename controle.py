@@ -240,7 +240,7 @@ if not st.session_state["logado"]:
         )
 
         if st.button("Criar minha conta"):
-            if nome_cadastro.strip() == "" or email_cadastro.strip() == "" or senha_cadastro == "":
+            if nome_cadastro.strip() == "" or email_cadastro.strip() == "" or senha_cadastro == "" or confirmar_senha == "":
                 st.warning("Preencha todos os campos.")
                 
             elif "@" not in email_cadastro or "." not in email_cadastro.split("@")[-1]:
