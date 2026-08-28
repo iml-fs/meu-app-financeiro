@@ -171,15 +171,15 @@ if not st.session_state["logado"]:
                     0
                 )
 
-                planilha_usuarios.update_cell(
-                    linha_usuario_planilha,
-                    5,
-                    ""
-                )
+                    planilha_usuarios.update_cell(
+                        linha_usuario_planilha,
+                        5,
+                        ""
+                    )
                 
-                st.session_state["logado"] = True
-                st.session_state["usuario_atual"] = usuario.strip().lower()
-                st.rerun()
+                    st.session_state["logado"] = True
+                    st.session_state["usuario_atual"] = usuario.strip().lower()
+                    st.rerun()
                 
                 else:
                     tentativas_login += 1
