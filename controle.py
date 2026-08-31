@@ -173,18 +173,10 @@ if not st.session_state["logado"]:
                     minutos_restantes = max(1, int((bloqueado_ate - time.time()) / 60) + 1)
                     st.error(f"Muitas tentativas incorretas. Tente novamente em aproximadamente {minutos_restantes} minuto(s).")
 
-                elif verificar_senha(senha, senha_hash):
-                    planilha_usuarios.update_cell(
-                        linha_usuario_planilha,
-                    4,
-                    0
+                planilha_usuarios.update(
+                    f"D{linha_usuario_planilha}:E{linha_usuario_planilha}",
+                    [[0, ""]]
                 )
-
-                    planilha_usuarios.update_cell(
-                        linha_usuario_planilha,
-                        5,
-                        ""
-                    )
                 
                     st.session_state["logado"] = True
                     st.session_state["usuario_atual"] = usuario.strip().lower()
