@@ -164,8 +164,10 @@ if not st.session_state["logado"]:
                 if bloqueado_ate > 0 and bloqueado_ate <= time.time():
                     tentativas_login = 0
                     bloqueado_ate = 0
-                    planilha_usuarios.update_cell(linha_usuario_planilha, 4, 0)
-                    planilha_usuarios.update_cell(linha_usuario_planilha, 5, "")
+                    planilha_usuarios.update(
+                        f"D{linha_usuario_planilha}:E{linha_usuario_planilha}",
+                        [[0, ""]]
+                )
 
                 if bloqueado_ate > time.time():
                     minutos_restantes = max(1, int((bloqueado_ate - time.time()) / 60) + 1)
