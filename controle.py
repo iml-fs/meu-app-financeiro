@@ -380,9 +380,6 @@ if not st.session_state["logado"]:
 
                        nova_senha_hash = criar_hash_senha(nova_senha)
 
-                       cabecalhos = planilha_usuarios.row_values(1)
-                       coluna_senha = cabecalhos.index("Senha_Hash") + 1
-
                        planilha_usuarios.update(
                            f"C{linha_planilha}:E{linha_planilha}",
                            [[nova_senha_hash, 0, ""]]
