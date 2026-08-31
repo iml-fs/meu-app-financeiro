@@ -590,7 +590,7 @@ else:
                    st.error("Você não tem permissão para alterar esta meta.")
                else:
                    celula_id = planilha_metas.find(
-                str(int(meta_id_escolhida)),
+                str(meta_id_escolhida).strip().removesuffix(".0"),
                 in_column=1
             )
                    numero_linha = celula_id.row
