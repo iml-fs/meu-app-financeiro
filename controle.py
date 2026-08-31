@@ -643,11 +643,16 @@ else:
                     if email_dono_linha != usuario_logado:
                         continue
                     
-                    planilha_dados.update_cell(numero_linha, 3, str(registro["Data"]))
-                    planilha_dados.update_cell(numero_linha, 4, registro["Categoria"])
-                    planilha_dados.update_cell(numero_linha, 5, registro["Descrição"])
-                    planilha_dados.update_cell(numero_linha, 6, float(registro["Valor"]))
-                    planilha_dados.update_cell(numero_linha, 7, registro["Tipo"])
+                    planilha_dados.update(
+                        f"C{numero_linha}:G{numero_linha}",
+                        [[
+                            str(registro["Data"]),
+                            registro["Categoria"],
+                            registro["Descrição"],
+                            float(registro["Valor"]),
+                            registro["Tipo"]
+                        ]]
+                    )
                 
                 for id_excluido in ids_excluidos:
                     celula_id = planilha_dados.find(str(id_excluido), in_column=1)
