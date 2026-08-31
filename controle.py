@@ -372,7 +372,7 @@ if not st.session_state["logado"]:
                    ]
 
                    if usuario_encontrado.empty:
-                       st.error("Usuário não encontrado.")
+                       st.error("Não foi possível concluir a alteração de senha. Solicite um novo código.")
 
                    else:
                        indice_usuario = usuario_encontrado.index[0]
