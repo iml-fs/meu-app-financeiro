@@ -381,23 +381,10 @@ if not st.session_state["logado"]:
                        cabecalhos = planilha_usuarios.row_values(1)
                        coluna_senha = cabecalhos.index("Senha_Hash") + 1
 
-                       planilha_usuarios.update_cell(
-                           linha_planilha,
-                           coluna_senha,
-                           nova_senha_hash
+                       planilha_usuarios.update(
+                           f"C{linha_planilha}:E{linha_planilha}",
+                           [[nova_senha_hash, 0, ""]]
                        )
-                       planilha_usuarios.update_cell(
-                           
-                           linha_planilha,
-                           4,
-                           0
-                       )
-
-                       planilha_usuarios.update_cell(
-                           linha_planilha,
-                           5,
-                           ""
-                       ) 
 
                        del st.session_state["codigo_recuperacao"]
                        del st.session_state["email_recuperacao_confirmado"]
