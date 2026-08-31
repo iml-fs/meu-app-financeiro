@@ -185,20 +185,18 @@ if not st.session_state["logado"]:
                 else:
                     tentativas_login += 1
 
-                    planilha_usuarios.update_cell(
-                        linha_usuario_planilha,
-                        4,
-                        tentativas_login
-                    )
-                                    
                     if tentativas_login >= 3:
                         bloqueado_ate = time.time() + 300
-
-                        planilha_usuarios.update_cell(
-                            linha_usuario_planilha,
-                            5,
-                            bloqueado_ate
+                        planilha_usuarios.update(
+                            f"D{linha_usuario_planilha}:E{linha_usuario_planilha}",
+                            [[tentativas_login, bloqueado_ate]]
                         )
+                    else:
+                         planilha_usuarios.update_cell(
+                             linha_usuario_planilha,
+                             4,
+                             tentativas_login
+                         )
                     
                     if tentativas_login >= 3:
                         st.error("Muitas tentativas incorretas. Sua conta foi bloqueada por 5 minutos.")
