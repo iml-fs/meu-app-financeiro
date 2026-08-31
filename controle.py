@@ -393,6 +393,18 @@ if not st.session_state["logado"]:
                            coluna_senha,
                            nova_senha_hash
                        )
+                       planilha_usuarios.update_cell(
+                           
+                           linha_planilha,
+                           4,
+                           0
+                       )
+
+                       planilha_usuarios.update_cell(
+                           linha_planilha,
+                           5,
+                           ""
+                       ) 
 
                        del st.session_state["codigo_recuperacao"]
                        del st.session_state["email_recuperacao_confirmado"]
