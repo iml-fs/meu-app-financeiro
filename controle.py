@@ -665,7 +665,7 @@ else:
                 ids_excluidos = ids_antes - ids_depois
                 
                 for _, registro in dados_editados.iterrows():
-                    id_registro = int(registro["ID"])
+                    id_registro = str(registro["ID"]).strip().removesuffix(".0")
                     celula_id = planilha_dados.find(str(id_registro), in_column=1)
                     numero_linha = celula_id.row
                     email_dono_linha = planilha_dados.cell(numero_linha, 2).value
