@@ -424,6 +424,7 @@ else:
     st.sidebar.write(f"👤 Bem-vindo(a), **{usuario_logado}**!")
     if st.sidebar.button("Sair da Conta"):
         st.session_state["logado"] = False
+        st.session_state.pop("usuario_atual", None)
         st.rerun()
         
     st.sidebar.write("---")
