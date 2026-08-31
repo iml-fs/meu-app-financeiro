@@ -49,10 +49,10 @@ def conectar_google():
         planilha_usuarios = arquivo_google.add_worksheet(
             title="Usuarios",
             rows="1000",
-            cols="3"
+            cols="5"
         )
         planilha_usuarios.update(
-            values=[["Nome", "Email", "Senha_Hash"]],
+            values=[["Nome", "Email", "Senha_Hash", "Tentativas_Login", "Bloqueado_Ate"]],
             range_name="A1"
         )
 
