@@ -541,7 +541,7 @@ else:
             
         if not df_minhas_metas.empty:
             for index, row in df_minhas_metas.iterrows():
-                progresso = float(row["Guardado"]) / float(row["Alvo"])
+                progresso = float(row["Guardado"]) / float(row["Alvo"]) if float(row["Alvo"]) > 0 else 0.0
                 if progresso > 1.0: progresso = 1.0 
                 
                 st.write(f"**{row['Meta']}** (Você tem R$ {float(row['Guardado']):.2f} de R$ {float(row['Alvo']):.2f})")
