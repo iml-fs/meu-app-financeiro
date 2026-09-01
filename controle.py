@@ -629,8 +629,8 @@ else:
             )
             
             if st.button("Salvar Alterações"):
-                ids_antes = set(dados_para_editar["ID"].astype(str))
-                ids_depois = set(dados_editados["ID"].astype(str))
+                ids_antes = set(dados_para_editar["ID"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True))
+                ids_depois = set(dados_editados["ID"].astype(str).str.strip().str.replace(r"\.0$", "", regex=True))
                 ids_excluidos = ids_antes - ids_depois
                 
                 for _, registro in dados_editados.iterrows():
