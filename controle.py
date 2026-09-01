@@ -654,7 +654,7 @@ else:
                     )
                 
                 for id_excluido in ids_excluidos:
-                    celula_id = planilha_dados.find(str(id_excluido), in_column=1)
+                    celula_id = planilha_dados.find(str(id_excluido).strip().removesuffix(".0"), in_column=1)
                     email_dono_linha = planilha_dados.cell(celula_id.row, 2).value
                     if email_dono_linha != usuario_logado:
                         continue
