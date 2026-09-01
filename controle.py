@@ -36,10 +36,10 @@ def conectar_google():
         planilha_metas = arquivo_google.add_worksheet(
             title="Metas",
             rows="1000",
-            cols="4"
+            cols="5"
         )
         planilha_metas.update(
-            values=[["Email_Dono", "Meta", "Alvo", "Guardado"]],
+            values=[["ID", "Email_Dono", "Meta", "Alvo", "Guardado"]],
             range_name="A1"
         )
 
