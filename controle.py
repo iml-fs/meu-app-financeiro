@@ -427,7 +427,7 @@ else:
         )
 
     if st.sidebar.button("Salvar Registro"):
-        if descricao != "" and valor > 0:
+        if descricao.strip() != "" and valor > 0:
             novo_id = str(uuid.uuid4())
             
             planilha_dados.append_row([
@@ -435,7 +435,7 @@ else:
                 usuario_logado,
                 str(data),
                 categoria,
-                descricao,
+                descricao.strip(),
                 float(valor),
                 tipo
             ])
@@ -516,14 +516,14 @@ else:
         valor_meta = col_meta2.number_input("Valor Necessário (R$)", min_value=0.0, format="%.2f")
         
         if st.button("Criar Nova Meta"):
-            if nome_meta != "" and valor_meta > 0:
+            if nome_meta.strip() != "" and valor_meta > 0:
 
                 novo_id_meta = str(uuid.uuid4())
                    
                 planilha_metas.append_row([
                     novo_id_meta,
                     usuario_logado,
-                    nome_meta,
+                    nome_meta.strip(),
                     float(valor_meta),
                     0.0
                 ])
