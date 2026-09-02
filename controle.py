@@ -585,7 +585,20 @@ else:
                    st.rerun()
                    
             if st.button("🗑️ Excluir Meta"):
-                st.warning("Exclusão de meta em construção.")
+                celula_id_excluir = planilha_metas.find(
+                    str(meta_id_escolhida).strip().removesuffix(".0"),
+                    in_column=1
+                )
+                
+                numero_linha_excluir = celula_id_excluir.row
+                email_dono_meta = planilha_metas.cell(numero_linha_excluir, 2).value
+
+                if email_dono_meta != usuario_logado:
+                    st.error("Você não tem permissão para excluir esta meta.")
+                else:
+                    planilha_metas.delete_rows(numero_linha_excluir)
+                    st.success("Meta excluída com sucesso!")
+                    st.rerun()
                    
         else:
             st.info("Você ainda não tem objetivos cadastrados. Crie sua primeira meta logo acima!")
