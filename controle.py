@@ -18,6 +18,9 @@ st.set_page_config(
     layout="wide"
 )
 
+def formatar_moeda(valor):
+    return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
 st.markdown("""
 <style>
     .stApp {
@@ -524,9 +527,9 @@ else:
             saldo = entradas - saidas
             
             col1, col2, col3 = st.columns(3)
-            col1.metric("Receitas", f"R$ {entradas:.2f}")
-            col2.metric("Despesas", f"R$ {saidas:.2f}")
-            col3.metric("Saldo Atual", f"R$ {saldo:.2f}")
+            col1.metric("Receitas", formatar_moeda(entradas))
+            col2.metric("Despesas", formatar_moeda(saidas))
+            col3.metric("Saldo Atual", formatar_moeda(saldo))
             
             st.write("---")
             saidas_df = dados_visuais[dados_visuais["Tipo"] == "Saída (Custo/Gasto)"]
