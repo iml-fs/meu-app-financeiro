@@ -584,6 +584,9 @@ else:
                    st.success(f"R$ {valor_guardar} adicionados!")
                    st.rerun()
                    
+            if st.button("🗑️ Excluir Meta"):
+                st.warning("Exclusão de meta em construção.")
+                   
         else:
             st.info("Você ainda não tem objetivos cadastrados. Crie sua primeira meta logo acima!")
 
