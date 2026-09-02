@@ -12,7 +12,34 @@ from google.oauth2.service_account import Credentials
 
 resend.api_key = st.secrets["resend"]["api_key"]
 
-st.set_page_config(page_title="Lúcido | Finanças", page_icon="💸", layout="wide")
+st.set_page_config(
+    page_title="Lúcido — Seu dinheiro, mais claro.",
+    page_icon="✨",
+    layout="wide"
+)
+
+st.markdown("""
+<style>
+    .stApp {
+        background: linear-gradient(135deg, #0B0F1A 0%, #111827 100%);
+    }
+
+    section[data-testid="stSidebar"] {
+        background: #111827;
+        border-right: 1px solid rgba(139, 92, 246, 0.18);
+    }
+
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        max-width: 1400px;
+    }
+
+    h1, h2, h3 {
+        letter-spacing: -0.02em;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # ==========================================
 # CONEXÃO COM O GOOGLE SHEETS
