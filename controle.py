@@ -505,7 +505,7 @@ else:
     else:
         dados = pd.DataFrame()
         
-    aba_dashboard, aba_metas, aba_saude, aba_editar = st.tabs(["📊 Dashboard", "🎯 Metas de Economia", "🩺 Saúde Financeira", "⚙️ Editar Registros"])
+    aba_dashboard, aba_metas, aba_saude, aba_editar = st.tabs(["⌂ Visão Geral", "◎ Metas", "♡ Saúde Financeira", "↔ Movimentações"])
 
     with aba_dashboard:
         if not dados.empty:
