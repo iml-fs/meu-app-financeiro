@@ -232,6 +232,7 @@ if not st.session_state["logado"]:
                 
                     st.session_state["logado"] = True
                     st.session_state["usuario_atual"] = usuario.strip().lower()
+                    st.session_state["nome_usuario"] = str(registro_usuario["Nome"]).strip()
                     st.rerun()
                 
                 else:
@@ -453,7 +454,10 @@ else:
     st.sidebar.markdown("## ✨ Lúcido")
     st.sidebar.caption("Seu dinheiro, mais claro.")
     
-    st.sidebar.write(f"👤 Bem-vindo(a), **{usuario_logado}**!")
+    nome_usuario = st.session_state.get("nome_usuario", usuario_logado)
+    st.sidebar.markdown(f"**Olá, {nome_usuario}! 👋**")
+    st.sidebar.caption("Que bom ter você por aqui.")
+    
     if st.sidebar.button("Sair da Conta"):
         st.session_state["logado"] = False
         st.session_state.pop("usuario_atual", None)
