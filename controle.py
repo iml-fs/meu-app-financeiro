@@ -495,7 +495,8 @@ else:
         else:
             st.sidebar.warning("Preencha a descrição e o valor.")
 
-    st.title("💸 Lúcido | Finanças")
+    st.title("✨ Lúcido")
+    st.caption("Seu dinheiro, mais claro.")
 
     df_completo = carregar_dados()
     
