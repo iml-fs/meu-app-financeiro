@@ -449,6 +449,9 @@ if not st.session_state["logado"]:
 # ==========================================
 else:
     usuario_logado = st.session_state["usuario_atual"]
+
+    st.sidebar.markdown("## ✨ Lúcido")
+    st.sidebar.caption("Seu dinheiro, mais claro.")
     
     st.sidebar.write(f"👤 Bem-vindo(a), **{usuario_logado}**!")
     if st.sidebar.button("Sair da Conta"):
