@@ -498,8 +498,6 @@ else:
         else:
             st.sidebar.warning("Preencha a descrição e o valor.")
 
-    st.title("✨ Lúcido")
-    st.caption("Seu dinheiro, mais claro.")
 
     df_completo = carregar_dados()
     
@@ -511,6 +509,9 @@ else:
     aba_dashboard, aba_metas, aba_saude, aba_editar = st.tabs(["⌂ Visão Geral", "◎ Metas", "♡ Saúde Financeira", "↔ Movimentações"])
 
     with aba_dashboard:
+        st.subheader("Visão Geral")
+        st.caption("Aqui está o resumo das suas finanças.")
+        
         if not dados.empty:
             # Correção do erro de formatação misturada (devidamente alinhado!)
             dados["Data"] = pd.to_datetime(dados["Data"], format='mixed', errors='coerce')
