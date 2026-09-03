@@ -587,7 +587,7 @@ else:
                 st.markdown(
                     f"""
                     <div class="card-financeiro card-receitas">
-                        <div class="card-titulo">Receitas</div>
+                        <div class="card-titulo">↗ Receitas</div>
                         <div class="card-subtitulo">Entradas</div>
                         <div class="card-valor">{formatar_moeda(entradas)}</div>
                     </div>
