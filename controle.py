@@ -103,6 +103,14 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     color: #10B981;
 }
 
+.card-icone-despesas {
+    color: #F43F5E;
+}
+
+.card-icone-saldo {
+    color: #8B5CF6;
+}
+
 .card-subtitulo {
     font-size: 0.78rem;
     color: #10B981;
@@ -607,7 +615,7 @@ else:
                 st.markdown(
                     f"""
                     <div class="card-financeiro card-despesas">
-                        <div class="card-titulo">Despesas</div>
+                        <div class="card-titulo"><span class="card-icone card-icone-despesas">↘</span> Despesas</div>
                         <div class="card-subtitulo card-subtitulo-despesas">Saídas</div>
                         <div class="card-valor">{formatar_moeda(saidas)}</div>
                     </div>
@@ -619,7 +627,7 @@ else:
                 st.markdown(
                     f"""
                     <div class="card-financeiro card-saldo">
-                        <div class="card-titulo">Saldo Atual</div>
+                        <div class="card-titulo"><span class="card-icone card-icone-saldo">◈</span> Saldo Atual</div>
                         <div class="card-subtitulo card-subtitulo-saldo">Resultado</div>
                         <div class="card-valor">{formatar_moeda(saldo)}</div>
                     </div>
