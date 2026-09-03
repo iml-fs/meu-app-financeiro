@@ -77,7 +77,7 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     border: 1px solid rgba(244, 63, 94, 0.32);
 }
 
-.card-subtitulo-despesas {
+.card-subtitulo.card-subtitulo-despesas {
     color: #F43F5E;
 }
 .card-saldo {
@@ -85,7 +85,7 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     border: 1px solid rgba(139, 92, 246, 0.32);
 }
 
-.card-subtitulo-saldo {
+.card-subtitulo.card-subtitulo-saldo {
     color: #8B5CF6;
 }
 
