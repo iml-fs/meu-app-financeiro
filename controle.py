@@ -60,6 +60,36 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     font-size: 2rem;
     font-weight: 700;
 }
+
+.card-financeiro {
+    border-radius: 18px;
+    padding: 22px 24px;
+    min-height: 135px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.card-receitas {
+    background: rgba(16, 185, 129, 0.10);
+    border: 1px solid rgba(16, 185, 129, 0.28);
+}
+
+.card-titulo {
+    font-size: 0.95rem;
+    color: #AEB7C8;
+    margin-bottom: 4px;
+}
+
+.card-subtitulo {
+    font-size: 0.78rem;
+    color: #10B981;
+    margin-bottom: 10px;
+}
+
+.card-valor {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
     
 </style>
 """, unsafe_allow_html=True)
@@ -534,9 +564,21 @@ else:
             entradas = dados_visuais[dados_visuais["Tipo"] == "Entrada (Ganho)"]["Valor"].sum()
             saidas = dados_visuais[dados_visuais["Tipo"] == "Saída (Custo/Gasto)"]["Valor"].sum()
             saldo = entradas - saidas
+
             
             col1, col2, col3 = st.columns(3)
-            col1.metric("Receitas", formatar_moeda(entradas))
+            with col1:
+                st.markdown(
+                    f"""
+                    <div class="card-financeiro card-receitas">
+                        <div class="card-titulo">Receitas</div>
+                        <div class="card-subtitulo">Entradas</div>
+                        <div class="card-valor">{formatar_moeda(entradas)}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+                
             col2.metric("Despesas", formatar_moeda(saidas))
             col3.metric("Saldo Atual", formatar_moeda(saldo))
             
