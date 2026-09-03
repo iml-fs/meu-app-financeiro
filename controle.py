@@ -72,6 +72,22 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     background: rgba(17, 24, 39, 0.88);
     border: 1px solid rgba(16, 185, 129, 0.32);
 }
+.card-despesas {
+    background: rgba(17, 24, 39, 0.88);
+    border: 1px solid rgba(244, 63, 94, 0.32);
+}
+
+.card-subtitulo-despesas {
+    color: #F43F5E;
+}
+.card-saldo {
+    background: rgba(17, 24, 39, 0.88);
+    border: 1px solid rgba(139, 92, 246, 0.32);
+}
+
+.card-subtitulo-saldo {
+    color: #8B5CF6;
+}
 
 .card-titulo {
     font-size: 0.95rem;
@@ -579,8 +595,29 @@ else:
                     unsafe_allow_html=True
                 )
                 
-            col2.metric("Despesas", formatar_moeda(saidas))
-            col3.metric("Saldo Atual", formatar_moeda(saldo))
+            with col2:
+                st.markdown(
+                    f"""
+                    <div class="card-financeiro card-despesas">
+                        <div class="card-titulo">Despesas</div>
+                        <div class="card-subtitulo card-subtitulo-despesas">Saídas</div>
+                        <div class="card-valor">{formatar_moeda(saidas)}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+                
+            with col3:
+                st.markdown(
+                    f"""
+                    <div class="card-financeiro card-saldo">
+                        <div class="card-titulo">Saldo Atual</div>
+                        <div class="card-subtitulo card-subtitulo-saldo">Resultado</div>
+                        <div class="card-valor">{formatar_moeda(saldo)}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                ) 
             
             st.write("---")
             saidas_df = dados_visuais[dados_visuais["Tipo"] == "Saída (Custo/Gasto)"]
