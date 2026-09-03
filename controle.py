@@ -101,14 +101,26 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     font-size: 1.05rem;
     font-weight: 700;
     color: #10B981;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.22);
+    border-radius: 8px;
+    width: 28px;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
 }
 
 .card-icone-despesas {
     color: #F43F5E;
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.22);
+
 }
 
 .card-icone-saldo {
     color: #8B5CF6;
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.22);
 }
 
 .card-subtitulo {
