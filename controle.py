@@ -69,8 +69,8 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
 }
 
 .card-receitas {
-    background: rgba(16, 185, 129, 0.10);
-    border: 1px solid rgba(16, 185, 129, 0.28);
+    background: rgba(17, 24, 39, 0.88);
+    border: 1px solid rgba(16, 185, 129, 0.32);
 }
 
 .card-titulo {
