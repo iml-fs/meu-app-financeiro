@@ -63,17 +63,17 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
 
 .card-financeiro {
     border-radius: 18px;
-    padding: 22px 24px;
-    min-height: 135px;
+    padding: 16px 18px;
+    min-height: 115px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
 .card-receitas {
-    background: rgba(17, 24, 39, 0.88);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(17, 24, 39, 0.92));
     border: 1px solid rgba(16, 185, 129, 0.32);
 }
 .card-despesas {
-    background: rgba(17, 24, 39, 0.88);
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.10), rgba(17, 24, 39, 0.92));
     border: 1px solid rgba(244, 63, 94, 0.32);
 }
 
@@ -81,7 +81,7 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     color: #F43F5E;
 }
 .card-saldo {
-    background: rgba(17, 24, 39, 0.88);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(17, 24, 39, 0.92));
     border: 1px solid rgba(139, 92, 246, 0.32);
 }
 
@@ -93,6 +93,12 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     font-size: 0.95rem;
     color: #AEB7C8;
     margin-bottom: 4px;
+}
+
+.card-rodape {
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #8F9BAD;
 }
 
 .card-icone {
@@ -618,6 +624,8 @@ else:
                         <div class="card-titulo"><span class="card-icone">↗</span> Receitas</div>
                         <div class="card-subtitulo">Entradas</div>
                         <div class="card-valor">{formatar_moeda(entradas)}</div>
+                        <div class="card-rodape">Total de saídas no período</div>
+                        
                     </div>
                     """,
                     unsafe_allow_html=True
@@ -629,7 +637,8 @@ else:
                     <div class="card-financeiro card-despesas">
                         <div class="card-titulo"><span class="card-icone card-icone-despesas">↘</span> Despesas</div>
                         <div class="card-subtitulo card-subtitulo-despesas">Saídas</div>
-                        <div class="card-valor">{formatar_moeda(saidas)}</div>
+                        <div class="card-valor">{formatar_moeda(entradas)}</div>
+                        <div class="card-rodape">Total de saídas no período</div>
                     </div>
                     """,
                     unsafe_allow_html=True
@@ -642,6 +651,7 @@ else:
                         <div class="card-titulo"><span class="card-icone card-icone-saldo">◈</span> Saldo Atual</div>
                         <div class="card-subtitulo card-subtitulo-saldo">Resultado</div>
                         <div class="card-valor">{formatar_moeda(saldo)}</div>
+                        <div class="card-rodape">Receitas − Despesas</div>
                     </div>
                     """,
                     unsafe_allow_html=True
