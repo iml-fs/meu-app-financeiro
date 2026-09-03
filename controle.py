@@ -95,6 +95,14 @@ div[data-testid="stMetric"] [data-testid="stMetricValue"] {
     margin-bottom: 4px;
 }
 
+.card-icone {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #10B981;
+}
+
 .card-subtitulo {
     font-size: 0.78rem;
     color: #10B981;
@@ -587,7 +595,7 @@ else:
                 st.markdown(
                     f"""
                     <div class="card-financeiro card-receitas">
-                        <div class="card-titulo">↗ Receitas</div>
+                        <div class="card-titulo"><span class="card-icone">↗</span> Receitas</div>
                         <div class="card-subtitulo">Entradas</div>
                         <div class="card-valor">{formatar_moeda(entradas)}</div>
                     </div>
